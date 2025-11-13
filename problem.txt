@@ -1,0 +1,64 @@
+Middle number arithmetic operations
+● Description:
+Given an integer, find the middle value, perform the arithmetic operations.
+What is a middle number? In any odd digit, the middle number is easily found
+by this formula “(Number length + 1) / 2”.
+E.g. 112 is the integer middle number 1. In the formula =>
+= (3 + 1) / 2
+= 4 / 2
+= 2
+we count in numerical positions like (0, 10, 100...n).
+1th position = 1
+2th position = 10
+3th position = 100
+and so on.
+The middle number is ‘1’;
+After finding the middle number, perform the required arithmetic operations
+and return the output.
+● Examples (Input/Output)
+Example 1:
+● Input: i = 0
+● Output: “Integer is zero!”, -1, -1, -1, -1
+● Explanation: Because Zero to zero performed output was always zero.
+Example 2:
+● Input: i = 13
+● Output: “Integer length is less than equal 2!”, -1, -1, -1, -1
+● Explanation: The length of the integer cannot be less than 2. ex: (1 -
+99)
+Example 3:
+● Input: i = 1020
+● Output: “Integer length is even!”, -1, -1, -1, -1
+● Explanation: The length of the integer cannot be even.
+Example 4:
+● Input: i = -190
+● Output: ”1”, (+)109, (-)-71, (*)1710, (/)21.111
+● Explanation: If the integer is negative then convert it to positive
+first.
+Example 5:
+● Input: i = 12345
+● Output: ”1”, (+)468, (-)-222, (*)42435, (/)4115
+● Explanation: The correct integer output was addition, subtraction,
+multiplication, and division.(All edge cases are correct)
+Example 6:
+● Input: i = 100
+● Output: ”1”, (+)10, (-)10, (*)0, (/)Cannot divide by zero.
+● Explanation: The correct integer output was addition, subtraction,
+multiplication, and division.(All edge cases are correct)
+Example 7:
+● Input: i = 42346234718
+● Output: ”1”, (+)658180, (-)188744, (*)99394153716, (/)21173117359 OR
+2.11731e+10
+● Explanation: The correct integer output was addition, subtraction,
+multiplication, and division.(All edge cases are correct)
+Example 8:
+● Input: i = 30729492431397393
+● Output: ”1”, (+)738692317, (-)-124102469, (*)132566229095733132,
+(/)7682373107849348 OR 7.68237e+15
+● Explanation: The correct integer output was addition, subtraction,
+multiplication, and division.(All edge cases are correct)
+(Note: All of the inputs have a minimal difference for types of compiler and
+interpreter. Example 1-8 run by “clang++” compiler.)
+● Constraints:
+● -2^63 <= i <= 2^63 - 1
+● Topics
+● Mathematics

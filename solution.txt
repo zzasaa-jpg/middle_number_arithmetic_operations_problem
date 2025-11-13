@@ -1,0 +1,182 @@
+---------------------------------------------- Integer and math based solution in cpp ---------------------------------
+#include <iostream>
+#include <tuple>
+#include <string>
+using namespace std;
+
+int places_recursion(int x, int length, int j){
+	  if(j == length) return x;
+        return places_recursion(x * 10, length, j + 1);
+}
+
+tuple<string , long long, long long, long long, double> mid_number_airthametic_opr(string mes, long long i){
+        //Handling the number is 'zero'-------------
+  	   if (i == 0 ) return {"Integer is zero!" ,-1, -1, -1, -1};
+        //------------------------------------------
+
+        //If number length is less than equal to '2'
+        long long temp = i;
+        int length = 0;
+        while (temp != 0){
+                length++;
+                temp = temp / 10;
+        }
+        if(length <= 2) return{"Integer length is  less tha equal 2!" , -1, -1, -1, -1};
+        //------------------------------------------
+
+        //If number length is even------------------
+        if (length % 2 == 0) return {"Integer length is even!", -1, -1, -1, -1};
+        //------------------------------------------
+
+        //Negative value handle---------------------
+        if (i < 0) i = i * -1;
+        //------------------------------------------
+
+        //Finding the mid number and it's place-----
+        int mid  = (length + 1) / 2;
+        int mid_value_place = places_recursion(10, mid, 1);
+        //------------------------------------------
+
+        //Given integer split into half-------------
+        long long position = 1,
+            place = 1,
+            temp2 = i,
+            newInt1 = 0,
+            newInt2 = 0,
+            __mid_value_place__ = mid_value_place / 10,
+            actual_mid_value = 0;
+        bool right_turn = true;
+
+        while (temp2 > 0){
+                long long digit = temp2 % 10;
+                long long value = digit * place;
+
+                if (place > mid_value_place / 10) {
+                        right_turn = false;
+                        //Store the integer actual mid value
+                        actual_mid_value = (i / __mid_value_place__) % 10;
+                }
+
+                /*This right turn indicating the newInt2 from integer right half values from integer 'last value' to 'mid value'*/
+                if (right_turn) newInt2 += value;
+                //-------------------------------
+
+                /*The newInt1 indicating the integer left half values from integer 'mid value' to 'first value'*/
+                else newInt1 += value;
+                //-------------------------------
+
+                temp2 /= 10;
+                place = place * 10;
+                position++;
+
+        }
+
+        //The mid value adding to newInt1-----------
+        newInt1 = newInt1 + ((i / __mid_value_place__) % 10) * __mid_value_place__;
+        //------------------------------------------
+
+        //Removing unwanted zero's------------------
+        newInt1 /= __mid_value_place__;
+        //------------------------------------------
+        return {"1", newInt1 + newInt2,
+                newInt1 - newInt2,
+                newInt1 * newInt2,
+                (actual_mid_value != 0) ? static_cast<double>(i) / actual_mid_value : -10};
+}
+
+
+
+int main(){
+        long long i = -30729492031397393;;
+        string mes = "";
+        bool zero = false;
+        auto [mes_, add, sub, mul, dive] = mid_number_airthametic_opr(mes, i);
+        if (dive == -10) zero = true;
+
+        if (zero) {
+                cout << mes_ << ", " << add << ", " << sub << ", " << mul << ", " << "Cannot divide by zero." << endl;
+        } else {
+                cout << mes_ << ", " << add << ", " << sub << ", " << mul << ", " << dive << endl;
+        }
+        return 0;
+}
+------------------------------- Integer and math solution based Time Complexiy & Space Complexity ---------------------
+Time Complexity: O(log₁₀n)
+Space Complexity: O(1)
+-----------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------- END -----------------------------------------------------
+
+
+
+------------------------------------------------ String based solution in cpp -----------------------------------------
+#include <iostream>
+#include <utility>
+#include <string>
+using namespace std;
+
+tuple<string, long long, long long, long long, double> mid_number_airthametic_opr(string mes, long long i){
+        //Handling the number is 'zero'--------------
+        if (i == 0 ) return {"Integer is zero!", -1, -1, -1, -1};
+        //-------------------------------------------
+
+        //Negative value handle---------------------
+        if (i < 0) i = i * -1;
+        //------------------------------------------
+
+        string first_string, second_string, st = to_string(i);
+
+        //If number length is less than equal to '2'
+        long long length = st.length();
+        if(length <= 2) return {"Integer length is less than equal 2!", -1, -1, -1, -1};
+        //------------------------------------------
+
+        //If number length is even------------------
+        if (length % 2 == 0) return {"Integer length is even!", -1, -1, -1, -1};
+        //------------------------------------------
+
+        //Finding the mid number--------------------
+        long long mid = (length + 1) / 2;
+        //------------------------------------------
+
+        //String(Integer) diveding into 2 strings---
+
+        first_string = st.substr(0, mid);
+        second_string = st.substr(mid - 1, length);
+
+        //------------------------------------------
+
+        //---Two string's convert back to integer---
+
+        long long first_int = stoi(first_string);
+        long long second_int = stoi(second_string);
+
+        //------------------------------------------
+
+        return {"1", first_int + second_int,
+                first_int - second_int,
+                first_int * second_int,
+                ((st[mid - 1] - '0') != 0) ? static_cast<double>(i) / (st[mid - 1] - '0') : -10
+        };
+}
+
+int main(){
+        long long i =  -30729492431397393;
+        string mes = "";
+        bool zero = false;
+        auto [mes_, add, sub, mul, dive] = mid_number_airthametic_opr(mes, i);
+        if (dive == -10) zero = true;
+
+        if (zero) {
+                cout << mes_ << ", " << add << ", " << sub << ", " << mul << ", " << "Cannot divide by zero." << endl;
+        } else {
+                cout << mes_ << ", " << add << ", " << sub << ", " << mul << ", " << dive << endl;
+        }
+        return 0;
+}
+------------------------------- String based solution Time Complexiy & Space Complexity -------------------------------
+Time Complexity: O(n)
+Space Complexity: O(n)
+-----------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------END--------------------------------------------------------
