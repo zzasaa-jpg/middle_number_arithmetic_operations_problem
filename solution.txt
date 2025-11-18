@@ -84,8 +84,6 @@ tuple<string , long long, long long, long long, double> mid_number_arithmetic_op
                 (actual_mid_value != 0) ? static_cast<double>(i) / actual_mid_value : -10};
 }
 
-
-
 int main(){
         long long i = -30729492031397393;
         string message = "";
@@ -101,8 +99,8 @@ int main(){
         return 0;
 }
 ------------------------------- Integer and math solution based Time Complexiy & Space Complexity ---------------------
-Time Complexity: O(log₁₀n)
-Space Complexity: O(1)
+Time Complexity: O(n)
+Space Complexity: O(n)
 -----------------------------------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------- END -----------------------------------------------------
@@ -179,4 +177,94 @@ Time Complexity: O(n)
 Space Complexity: O(n)
 -----------------------------------------------------------------------------------------------------------------------
 
-------------------------------------------------------------END--------------------------------------------------------
+----------------------------------------------------------- END -------------------------------------------------------
+
+
+
+--------------------------------------------------- Solving by formula ------------------------------------------------
+
+-------------------------------- This are formulas for 'mid number arithmetic opr' problem ----------------------------
+x / position
+y + (mid * position)
+-----------------------------------------------------------------------------------------------------------------------
+
+#include <iostream>
+#include <string>
+#include <tuple>
+using namespace std;
+
+// Returns the digit count of the given integer 'i' by repeatedly dividing by 10.
+int length_(long long i){
+    int length = 0;
+        long long temp = i;
+        while(temp != 0){
+                length++;
+                temp /= 10;
+        }
+        return length;
+}
+
+// Calculates the place value of the middle digit in an odd-length integer.
+int position_(int length){
+        int mid = (length + 1) / 2;
+        long long positions = 1;
+        for (int k = 1; k < mid; k++) positions *= 10;
+        return positions;
+}
+
+// Processes an odd-length integer by extracting its middle digit,
+// splitting it into left and right parts, reconstructing both sides,
+// and returning the results of addition, subtraction, multiplication,
+// and division using the middle digit. The tuple includes:
+// (statusMessage, left+right, left-right, left*right, i/middleDigit)
+tuple<string , long long, long long, long long, double> mid_number_arithmetic_opr(string mes, long long i){
+    if (i == 0 ) return {"Integer is zero!" ,-1, -1, -1, -1};
+        //------------------------------------------
+
+    //If number length is less than equal to '2'
+    long long length = length_(i);
+    if(length <= 2) return{"Integer length is  less tha equal 2!" , -1, -1, -1, -1};
+    //------------------------------------------
+
+    //If number length is even------------------
+    if (length % 2 == 0) return {"Integer length is even!", -1, -1, -1, -1};
+    //------------------------------------------
+
+    //Negative value handle---------------------
+    if (i < 0) i = i * -1;
+    //------------------------------------------
+    
+    long long position = position_(length),
+    actual_mid_value = (i / position ) % 10;
+
+    long long x = i / position; // left half (including mid)
+    long long y = i % position; // right half
+    y = y + (actual_mid_value * position); // add mid to the right part
+    
+    return {"1", x + y,
+                x - y,
+                x * y,
+                (actual_mid_value != 0) ? static_cast<double>(i) / actual_mid_value : -10};
+}
+
+int main(){
+        long long i = -30729492031397393;
+        string message = "";
+        bool zero = false;
+        auto [mes_, add, sub, mul, divide] = mid_number_arithmetic_opr(message, i);
+        if (divide == -10) zero = true;
+
+        if (zero) {
+                cout << mes_ << ", " << add << ", " << sub << ", " << mul << ", " << "Cannot divide by zero." << endl;
+        } else {
+                cout << mes_ << ", " << add << ", " << sub << ", " << mul << ", " << divide << endl;
+        }
+        
+        return 0;
+}
+------------------------------- Solving by formula based solution Time Complexiy & Space Complexity -------------------
+Time Complexity: O(n)
+Space Complexity: O(1)
+-----------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------- END -------------------------------------------------------
