@@ -7,7 +7,7 @@ E.g. => 112 is the integer middle number 1. In the formula =>
 
 ```
 = (3 + 1) / 2
-= 4 + 2
+= 4 / 2
 = 2
 ```
 we count in numerical positions like (0, 10, 100...n).
